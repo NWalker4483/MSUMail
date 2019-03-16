@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <string>
 #include "include/event.cpp"
 void ShowHomeScreen();
@@ -7,6 +8,9 @@ using namespace std;
 void ClearScreen(){cout << string( 100, '\n' );}
 bool IsIn(string keyword, string line){return (line.find (keyword) != string::npos);}
 void ShowEventsPage(Profile);
+string toLower(string data){
+    return data;
+}
 
 void SetupKeywords(string First,string Last){
   string keyword;
@@ -16,7 +20,7 @@ void SetupKeywords(string First,string Last){
   o << "Keywords:";
   while (keyword != "exit"){
       cin >> keyword;
-      o << " " + keyword;
+      o << " " + toLower(keyword);
   }
   ClearScreen();
   ShowHomeScreen();
@@ -48,6 +52,7 @@ void SignUp(){
   ClearScreen();
   SetupKeywords(First, Last);
 }
+
 string getline_num(string filename, int num){
     ifstream o(filename);
     std::string line;
@@ -59,23 +64,23 @@ string getline_num(string filename, int num){
 }
 
 void Login(){
-  string First; 
-  string Last; 
-  cout << "Enter your first name:\n";
-  cin >> First;
-  cout << "Enter your last name:\n";
-  cin >> Last;
-  
-  // extract users actual password 
-  string act_password = getline_num("user_profiles/" + First + "-" + Last + ".txt",3);; 
-  string inp_password = "";
-  bool LoggedIn = false;
-  while (("Password: " + inp_password) != act_password){
-    cout << "Enter your password\n";
-    cin >> inp_password;
-  }
-  Profile User(First,Last);
-  ShowEventsPage(User);
+    string First; 
+    string Last; 
+    cout << "Enter your first name:\n";
+    cin >> First;
+    cout << "Enter your last name:\n";
+    cin >> Last;
+
+    // extract users actual password 
+    string act_password = getline_num("user_profiles/" + First + "-" + Last + ".txt",3);; 
+    string inp_password = "";
+    bool LoggedIn = false;
+    while (("Password: " + inp_password) != act_password){
+        cout << "Enter your password\n";
+        cin >> inp_password;
+    }
+Profile User(First,Last);
+ShowEventsPage(User);
 }
 
 void ShowHomeScreen(){
@@ -99,10 +104,11 @@ Event* FindReleventEvents(Profile User){
     std::string line;
     while (getline(o, line)){
         Event temp;
+        temp.name = line.substr(0,20);
         temp.content = line;
         bool relevant = false;
         for (int i = 0; i > (sizeof(User.KeyWords)/sizeof(User.KeyWords[0])); i++){
-            if (IsIn(User.KeyWords[0],line)){
+            if (IsIn(User.KeyWords[0],toLower(line))){
                 relevant = true;
             } 
         }
@@ -111,11 +117,11 @@ Event* FindReleventEvents(Profile User){
             curr_index += 1;
         }
     }
+    return Events;
 }
 
 void ShowEventsPage(Profile User){
     Event* EventList = FindReleventEvents(User);
-
     for(int i = 0;i < (sizeof(EventList)/sizeof(EventList));i++){
         cout << EventList[i].name << endl;
         cout << "Is happening on" << EventList[i].date;
@@ -126,26 +132,4 @@ int main() {
     ShowHomeScreen();
     return 0;
 }
-
-/*
-#include <stdio.h> 
-#include <string.h> 
-  
-int main() 
-{ 
-    char str[] = "Geeks-for-Geeks"; 
-  
-    // Returns first token  
-    char *token = strtok(str, "-"); 
-  
-    // Keep printing tokens while one of the 
-    // delimiters present in str[]. 
-    while (token != NULL) 
-    { 
-        printf("%s\n", token); 
-        token = strtok(NULL, "-"); 
-    } 
-  
-    return 0; 
-} 
-*/
+ 
