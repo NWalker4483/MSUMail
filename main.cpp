@@ -122,10 +122,11 @@ Event* FindReleventEvents(Profile User){
 
 void ShowEventsPage(Profile User){
     Event* EventList = FindReleventEvents(User);
-    for(int i = 0;i < (sizeof(EventList)/sizeof(EventList));i++){
-        cout << EventList[i].name << endl;
+    for(int i = 0; i < (sizeof(EventList)/sizeof(EventList));i++){
+        cout << i << ")" << EventList[i].name << endl;
         cout << "Is happening on" << EventList[i].date;
     }
+
 }
 
 int main() { 
