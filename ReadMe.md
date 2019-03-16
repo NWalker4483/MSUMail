@@ -24,4 +24,4 @@
 * [x] Create a User Interace 
 
 ### Anybody 
-* [x] <del>Propose a method of securely storing user info using file i/o</del>
+* [] <del>Propose a method of securely storing user info using file i/o</del>
