@@ -13,15 +13,15 @@
 *  jmik
 ### Nile 
 * [x] Determine how to connect to the MSU Email Servers
-* [ ] Capture a string copy of the emails content
+* [x] Capture a string copy of the emails content
 * [x] Implement Logic in python
 
 ### Waylan 
 * [x] Collect Sample Email Texts
-* [ ] Determine how to find relevant events in the email
+* [x] Determine how to find relevant events in the email
 
 ### Zipporah
 * [x] Create a User Interace 
 
 ### Anybody 
-* [ ] <del>Propose a method of securely storing user info using file i/o</del>
+* [x] <del>Propose a method of securely storing user info using file i/o</del>
